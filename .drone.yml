@@ -23,6 +23,8 @@ steps:
   when:
     instance:
       - drone-pr.rancher.io
+    branch:
+      - dev
 
 - name: docker-publish-dev
   image: plugins/docker
@@ -39,6 +41,37 @@ steps:
       - drone-publish.rancher.io
     ref:
       - refs/heads/dev
+    event:
+      - push
+
+- name: docker-build-sle-micro
+  image: plugins/docker
+  settings:
+    dockerfile: Dockerfile
+    repo: "rancher/harvester-os"
+    tag: "sle-micro-head"
+    dry_run: true
+  when:
+    instance:
+      - drone-pr.rancher.io
+    branch:
+      - sle-micro
+
+- name: docker-publish-sle-micro
+  image: plugins/docker
+  settings:
+    dockerfile: Dockerfile
+    repo: "rancher/harvester-os"
+    tag: "sle-micro-head"
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    instance:
+      - drone-publish.rancher.io
+    ref:
+      - refs/heads/sle-micro
     event:
       - push
 

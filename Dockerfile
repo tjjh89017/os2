@@ -1,4 +1,4 @@
-FROM registry.opensuse.org/isv/rancher/harvester/baseos/main/baseos:5.2 AS base
+FROM registry.opensuse.org/isv/rancher/harvester/baseos/main/baseos:latest AS base
 
 COPY files/etc/luet/luet.yaml /etc/luet/luet.yaml
 

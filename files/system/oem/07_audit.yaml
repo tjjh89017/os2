@@ -1,0 +1,11 @@
+name: "Audit"
+stages:
+   initramfs:
+     - name: "Audit"
+       commands:
+       - |
+         if grep -q root=live:CDLABEL=COS_LIVE /proc/cmdline || [ -n "$(blkid -L COS_SYSTEM)" ]; then
+            systemctl disable auditd.service
+         else
+            systemctl enable auditd.service
+         fi

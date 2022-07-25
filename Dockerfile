@@ -1,4 +1,4 @@
-FROM registry.opensuse.org/isv/rancher/harvester/baseos/main/baseos:latest AS base
+FROM registry.opensuse.org/isv/rancher/harvester/baseos/test/main/baseos:latest AS base
 
 COPY files/etc/luet/luet.yaml /etc/luet/luet.yaml
 
@@ -14,7 +14,9 @@ RUN luet install -y \
     selinux/k3s \
     selinux/rancher \
     utils/nerdctl \
-    toolchain/yq
+    toolchain/yq \
+    utils/k9s \
+    toolchain/elemental-cli
 
 # Create the folder for journald persistent data
 RUN mkdir -p /var/log/journal
